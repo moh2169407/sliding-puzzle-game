@@ -195,3 +195,6 @@ class Cells:
                     return False
                 count += 1
         return count == 16  # Ensure all 15 cells are in place and one blank cell
+
+    def toArray(self):
+        return [[e.value if isinstance(e, Cell) else None for e in i] for i in self.grid]

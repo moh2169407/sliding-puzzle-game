@@ -1,44 +1,59 @@
-from heapq import *
+import heapq
+from heapq import heappush
+
 from Node import Node
 
+# Takes a node and goes backwards to the parent node
+def reconstruct_path(current):
+    path = []
+    while current:
+        path.append(current.move_pos)
+        current = current.parent
+    path.reverse()  # Reverse the path to show the solution from start to goal
+    return path
 
-class AI:
-    def __init__(self, cells):
-        self.cells = cells
-        self.goal = [
-            [1, 2, 3, 4],
-            [5, 6, 7, 8],
-            [9, 10, 11, 12],
-            [13, 14, 15, None]
-        ]
 
-    def check_end(self, grid):
-        flattened_grid = [cell.value if cell is not None else None for row in grid for cell in row]
-        flattened_goal = [value for row in self.goal for value in row]
-        return flattened_grid == flattened_goal
+class AStar:
+    def __init__(self, grid):
+        # The goals
+        self.goal = [[1,2,3,4],
+                     [5,6,7,8],
+                     [9,10,11,12],
+                     [13,14,15,None]]
+        self.grid = grid
+        self.moves = 0
 
     def astar(self):
+        # The open list, list containing node to be considered
         open_list = []
-        closed_set = set()
-        heapify(open_list)
-        initial_node = Node( None, self.cells, 0)
-        heappush(open_list, initial_node)
+        # The closed list, list containing node that have already been looked at
+        closed_list = set()  # Use a set for fast lookups
+        # Using a heapq for value based queue
+        heapq.heapify(open_list)
+        # The starting node created from the starting board config
+        starting_node = Node(self.grid, None, self.moves, 0)
+        # Pushed on the heap
+        heapq.heappush(open_list, starting_node)
+        # Start
         while open_list:
-            current = heappop(open_list)
-            if self.check_end(current.cells.grid) or current.h == 0:
-                return self.reconstruct_path(current)
-            if current in closed_set:
-                continue
-            children = current.generate_children(current.cells)
-            for child in children:
-                heappush(open_list, child)
-            closed_set.add(current)
-        return None
+            # The current node
+            current = heapq.heappop(open_list)
+            # if the current node is the end goal
+            if current.grid == self.goal or current.h == 0:
+                return current  # Found solution
 
-    def reconstruct_path(self, current):
-        path = []
-        while current:
-            path.append(current.cells.grid)
-            current = current.parent
-        path.reverse()  # Reverse the path to show the solution from start to goal
-        return path
+            grid_tuple = tuple(map(tuple, current.grid))  # Convert grid to a hashable type
+            # Prevents looking at node previously looked at
+            if grid_tuple in closed_list:
+                continue
+            self.moves += 1
+            # Adds it to the closed list
+            closed_list.add(grid_tuple)
+            # Generate the children, all the possible moves made at this current config
+            for child in current.generate_children():
+                child_tuple = tuple(map(tuple, child.grid))
+                if child_tuple not in closed_list:
+                    heapq.heappush(open_list, child)
+
+        return None  # No solution found
+

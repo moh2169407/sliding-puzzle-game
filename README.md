@@ -14,7 +14,6 @@ This project is a recreation of the classic 15-puzzle game, also known as the sl
 ## Installation & Usage
 ### Prerequisites
 - Python 3.x
-- NumPy
 
 ### Installation
 ```bash
@@ -22,9 +21,6 @@ This project is a recreation of the classic 15-puzzle game, also known as the sl
 git clone https://github.com/yourusername/sliding-16-puzzle.git
 cd sliding-16-puzzle
 
-# Install dependencies
-pip install -r requirements.txt
-```
 
 ### Running the Project
 ```bash
@@ -52,7 +48,8 @@ Initially, I attempted to generate random board configurations, but I later disc
 - Future improvements include optimizing the heuristic function and implementing a GUI visualization.
 
 ## Future Improvements
-- I want the size of the puzzle to change dynamically 
+- I want the size of the puzzle to change dynamically
+- The cost function for the a star doesn't work and resutls in a inf loop, I got it to work without it but it resembles closer to a greedy algorithm 
 
 ## Technologies Used
 - **Programming Language**: Python

@@ -55,3 +55,7 @@ Initially, I attempted to generate random board configurations, but I later disc
 - **Programming Language**: Python
 - **Libraries**: NumPy, PriorityQueue
 
+## Video
+https://github.com/user-attachments/assets/eac68258-1198-47ea-b3b5-71b55f18f24b
+
+

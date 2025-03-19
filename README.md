@@ -43,7 +43,6 @@ Initially, I attempted to generate random board configurations, but I later disc
 - **Debugging heuristic function**: I noticed that the heuristic values were not decreasing as expected. Debugging this issue taught me to validate each step and ensure that heuristic calculations are applied correctly to newly generated states.
 
 ## Results & Performance
-- The A* algorithm efficiently finds the optimal solution path.
 - The solver successfully completes puzzles in a reasonable time for most cases.
 - Future improvements include optimizing the heuristic function and implementing a GUI visualization.
 
